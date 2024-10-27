@@ -1,58 +1,104 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <p>
-      For a guide and recipes on how to configure / customize this project,<br>
-      check out the
-      <a href="https://cli.vuejs.org" target="_blank" rel="noopener">vue-cli documentation</a>.
-    </p>
-    <h3>Installed CLI Plugins</h3>
-    <ul>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-babel" target="_blank" rel="noopener">babel</a></li>
-      <li><a href="https://github.com/vuejs/vue-cli/tree/dev/packages/%40vue/cli-plugin-eslint" target="_blank" rel="noopener">eslint</a></li>
-    </ul>
-    <h3>Essential Links</h3>
-    <ul>
-      <li><a href="https://vuejs.org" target="_blank" rel="noopener">Core Docs</a></li>
-      <li><a href="https://forum.vuejs.org" target="_blank" rel="noopener">Forum</a></li>
-      <li><a href="https://chat.vuejs.org" target="_blank" rel="noopener">Community Chat</a></li>
-      <li><a href="https://twitter.com/vuejs" target="_blank" rel="noopener">Twitter</a></li>
-      <li><a href="https://news.vuejs.org" target="_blank" rel="noopener">News</a></li>
-    </ul>
-    <h3>Ecosystem</h3>
-    <ul>
-      <li><a href="https://router.vuejs.org" target="_blank" rel="noopener">vue-router</a></li>
-      <li><a href="https://vuex.vuejs.org" target="_blank" rel="noopener">vuex</a></li>
-      <li><a href="https://github.com/vuejs/vue-devtools#vue-devtools" target="_blank" rel="noopener">vue-devtools</a></li>
-      <li><a href="https://vue-loader.vuejs.org" target="_blank" rel="noopener">vue-loader</a></li>
-      <li><a href="https://github.com/vuejs/awesome-vue" target="_blank" rel="noopener">awesome-vue</a></li>
-    </ul>
+  <div class="login-container">
+    <div class="login-box">
+      <img src="@/assets/login/logo.svg" alt="Logo" class="logo" />
+      <h2>MARMITARIA</h2>
+      <div class="input-group">
+        <img src="@/assets/login/login.svg" alt="Login Icon" class="input-icon" />
+        <input type="text" placeholder="Login" />
+      </div>
+      <div class="input-group">
+        <img src="@/assets/login/senha.svg" alt="Senha Icon" class="input-icon" />
+        <input type="password" placeholder="Senha" />
+      </div>
+      <button class="login-button">Entrar</button>
+      <a href="#" class="forgot-password">Recuperar senha</a>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String
-  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
+/* Estilo da página e do bloco de login */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #D2D6DE;
 }
-ul {
-  list-style-type: none;
-  padding: 0;
+
+.login-box {
+  width: 451px;
+  height: 558px;
+  padding: 40px 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
-li {
-  display: inline-block;
-  margin: 0 10px;
+
+/* Estilo do logo */
+.logo {
+  width: 100px;
+  margin-bottom: 20px;
 }
-a {
-  color: #42b983;
+
+/* Estilo dos elementos de entrada */
+.input-group {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.input-icon {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+}
+
+input {
+  width: 400px;
+  height: 40px;
+  padding-left: 40px; /* Espaço para o ícone */
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+/* Estilo do botão de login */
+.login-button {
+  width: 400px;
+  height: 40px;
+  font-size: 18px;
+  background-color: #3C8DBC;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login-button:hover {
+  background-color: #357ABD;
+}
+
+/* Estilo do link de recuperação de senha */
+.forgot-password {
+  display: block;
+  margin-top: 15px;
+  color: #3C8DBC;
+  text-decoration: none;
+}
+
+.forgot-password:hover {
+  text-decoration: underline;
 }
 </style>
