@@ -32,7 +32,9 @@ export default {
   height: 100vh;
   background-color: #D2D6DE;
 }
-
+*{
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+}
 .login-box {
   width: 451px;
   height: 558px;
