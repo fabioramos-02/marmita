@@ -1,14 +1,17 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Funcionario from "../src/components/FuncionarioComponent.vue";
-import LoginPage from "../src/components/Login.vue";
+import Funcionario from "./views/FuncionarioView.vue";
+import LoginPage from "./views/Login.vue";
+
 
 Vue.use(VueRouter);
 
+
 const routes = [
   {
-    path: "/",
-    redirect: "/login", // Redireciona a rota raiz para a tela de login
+    path: "/funcionario", 
+    name: "Funcionario",
+    component: Funcionario,
   },
   {
     path: "/login",
@@ -28,4 +31,12 @@ const router = new VueRouter({
   routes,
 });
 
+router.beforeEach((to, from, next) => {
+  const autenticado = !!localStorage.getItem('token');
+  if (to.path !== '/login' && !autenticado) {
+    next('/login');
+  } else {
+    next();
+  }
+});
 export default router;
