@@ -23,11 +23,11 @@
             <td>(67) 90000-9997</td>
             <td>fabio@hotmail.com</td>
             <td>
-              <button class="btn btn-warning btn-xs" @click="onEdit" title="Editar">
-                <i class="fa fa-pencil"></i>
+              <button class="btn-action btn-edit" @click="onEdit" title="Editar">
+                <img src="../assets/btn/btn-update.svg" alt="Editar">
               </button>
-              <button class="btn btn-danger btn-xs" @click="onDelete" title="Excluir">
-                <i class="fa fa-trash"></i>
+              <button class="btn-action btn-delete" @click="onDelete" title="Excluir">
+                <img src="../assets/btn/btn-excluir.svg" alt="Excluir">
               </button>
             </td>
           </tr>
@@ -38,11 +38,11 @@
             <td>(67) 90000-9996</td>
             <td>usuario@hotmail.com</td>
             <td>
-              <button class="btn btn-warning btn-xs" @click="onEdit" title="Editar">
-                <i class="fa fa-pencil"></i>
+              <button class="btn-action btn-edit" @click="onEdit" title="Editar">
+                <img src="@/assets/btn/btn-update.svg" alt="Editar">
               </button>
-              <button class="btn btn-danger btn-xs" @click="onDelete" title="Excluir">
-                <i class="fa fa-trash"></i>
+              <button class="btn-action btn-delete" @click="onDelete" title="Excluir">
+                <img src="@/assets/btn/btn-excluir.svg" alt="Excluir">
               </button>
             </td>
           </tr>
@@ -69,10 +69,7 @@ export default {
       responsive: true,
       searching: true,
       paging: true,
-      info: true,
-      language: {
-        url: "//cdn.datatables.net/plug-ins/1.11.3/i18n/Portuguese-Brasil.json"
-      }
+      info: true
     });
   },
   methods: {
@@ -114,5 +111,17 @@ export default {
 
 table.dataTable thead th {
   border-bottom: 2px solid #dee2e6;
+}
+
+.btn-action {
+  background: none;
+  border: none;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.btn-action img {
+  width: 20px; /* Ajuste o tamanho conforme necessário */
+  height: 20px;
 }
 </style>
