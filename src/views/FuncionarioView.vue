@@ -182,6 +182,7 @@ export default {
   background-color: rgba(0, 0, 0, 0.5);
   display: flex;
   justify-content: center;
+  text-align: left;
   align-items: center;
 }
 

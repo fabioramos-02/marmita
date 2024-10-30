@@ -1,29 +1,31 @@
 {
   "funcionarios": [
     {
-      "id": 1,
-      "nome": "João Silva",
-      "cpf": "000.000.000-00",
+      "id": "1",
+      "nome": "fabio",
+      "cpf": "052.278.921-80",
       "endereco": "Rua X",
       "contato": "(67) 90000-0000",
-      "email": "joao@exemplo.com"
+      "email": "joao@exemplo.com",
+      "vgt_id": 0,
+      "originalIndex": 0
     }
   ],
   "usuarios": [
     {
-      "id": 1,
+      "id": "1",
       "username": "admin",
       "password": "123456",
       "role": "admin"
     },
     {
-      "id": 2,
+      "id": "2",
       "username": "funcionario",
       "password": "abc123",
       "role": "funcionario"
     },
     {
-      "id": 3,
+      "id": "3",
       "username": "cliente",
       "password": "cliente123",
       "role": "cliente"

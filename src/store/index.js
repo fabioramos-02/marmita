@@ -18,26 +18,47 @@ export default new Vuex.Store({
       state.funcionario = funcionario;
     },
   },
+  
   actions: {
     async getFuncionarios({ commit }) {
-      const response = await axios.get('http://localhost:3000/funcionarios');
-      commit('SET_FUNCIONARIOS', response.data);
+      try {
+        const response = await axios.get('http://localhost:3000/funcionarios');
+        commit('SET_FUNCIONARIOS', response.data);
+      } catch (error) {
+        console.error("Erro ao buscar funcionários:", error);
+      }
     },
     async getFuncionario({ commit }, id) {
-      const response = await axios.get(`http://localhost:3000/funcionarios/${id}`);
-      commit('SET_FUNCIONARIO', response.data);
+      try {
+        const response = await axios.get(`http://localhost:3000/funcionarios/${id}`);
+        commit('SET_FUNCIONARIO', response.data);
+      } catch (error) {
+        console.error(`Erro ao buscar funcionário com ID ${id}:`, error);
+      }
     },
     async registerFuncionario({ dispatch }, funcionario) {
-      await axios.post('http://localhost:3000/funcionarios', funcionario);
-      dispatch('getFuncionarios'); // Atualiza a lista
+      try {
+        await axios.post('http://localhost:3000/funcionarios', funcionario);
+        dispatch('getFuncionarios'); // Atualiza a lista
+      } catch (error) {
+        console.error("Erro ao registrar funcionário:", error);
+      }
     },
     async updateFuncionario({ dispatch }, { id, funcionario }) {
-      await axios.put(`http://localhost:3000/funcionarios/${id}`, funcionario);
-      dispatch('getFuncionarios'); // Atualiza a lista
+      try {
+        await axios.put(`http://localhost:3000/funcionarios/${id}`, funcionario);
+        dispatch('getFuncionarios'); // Atualiza a lista
+      } catch (error) {
+        console.error(`Erro ao atualizar funcionário com ID ${id}:`, error);
+      }
     },
-    async removeFuncionario({ dispatch }, id) {
-      await axios.delete(`http://localhost:3000/funcionarios/${id}`);
-      dispatch('getFuncionarios'); // Atualiza a lista
+    async deleteFuncionario({ dispatch }, id) { // Renomeado para evitar conflito
+      try {
+        await axios.delete(`http://localhost:3000/funcionarios/${id}`);
+        dispatch('getFuncionarios'); // Atualiza a lista
+      } catch (error) {
+        console.error(`Erro ao deletar funcionário com ID ${id}:`, error);
+      }
     },
   },
   getters: {
