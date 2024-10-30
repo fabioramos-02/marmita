@@ -9,6 +9,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    // rota padrao
+    path: "/",
+    redirect: "/login",
+  },
+  {
     path: "/funcionario", 
     name: "Funcionario",
     component: Funcionario,

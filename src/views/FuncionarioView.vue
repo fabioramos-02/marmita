@@ -3,44 +3,34 @@
     <MenuLateral />
     <div class="content">
       <h1 class="title">Funcionário</h1>
-      <button class="btn btn-success btn-sm btn-add" @click="abrirModal">+ Incluir</button>
+      <button class="btn-add" @click="abrirModal">+ Incluir</button>
 
-      <!-- Tabela com os funcionários -->
-      <table id="example" class="table table-bordered table-hover table-striped">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>CPF</th>
-            <th>Endereço</th>
-            <th>Contato</th>
-            <th>E-mail</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="funcionario in funcionarios" :key="funcionario.id">
-            <td>{{ funcionario.nome }}</td>
-            <td>{{ funcionario.cpf }}</td>
-            <td>{{ funcionario.endereco }}</td>
-            <td>{{ funcionario.contato }}</td>
-            <td>{{ funcionario.email }}</td>
-            <td>
-              <button class="btn-action btn-edit" @click="abrirModal(funcionario)" title="Editar">
-                <img src="../assets/btn/btn-update.svg" alt="Editar">
-              </button>
-              <button class="btn-action btn-delete" @click="removeFuncionario(funcionario.id)" title="Excluir">
-                <img src="../assets/btn/btn-excluir.svg" alt="Excluir">
-              </button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+      <!-- Tabela com vue-good-table -->
+      <vue-good-table
+        :columns="columns"
+        :rows="funcionarios"
+        :search-options="{ enabled: true }"
+        :pagination-options="{ enabled: true, perPage: 5 }"
+        class="good-table"
+      >
+        <template slot="table-row" slot-scope="props">
+          <span>{{ props.row[props.column.field] }}</span>
+          <template v-if="props.column.field === 'actions'">
+            <button class="btn-action btn-edit" @click="abrirModal(props.row)" title="Editar">
+              <img src="../assets/btn/btn-update.svg" alt="Editar" />
+            </button>
+            <button class="btn-action btn-delete" @click="removeFuncionario(props.row.id)" title="Excluir">
+              <img src="../assets/btn/btn-excluir.svg" alt="Excluir" />
+            </button>
+          </template>
+        </template>
+      </vue-good-table>
 
       <!-- Modal para Adicionar/Editar Funcionário -->
       <div v-if="mostrarModal" class="modal-overlay">
         <div class="modal">
           <div class="modal-header">
-            <h2>{{ funcionarioEditando ? 'EDITAR USUÁRIO' : 'INCLUIR USUÁRIO' }}</h2>
+            <h2>{{ funcionarioEditando ? 'EDITAR FUNCIONÁRIO' : 'INCLUIR FUNCIONÁRIO' }}</h2>
             <button class="close-button" @click="fecharModal">✕</button>
           </div>
           <hr class="modal-divider" />
@@ -79,6 +69,154 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
+import MenuLateral from './MenuLateral.vue';
+import { mapActions, mapGetters } from 'vuex';
+import { VueGoodTable } from 'vue-good-table';
+import 'vue-good-table/dist/vue-good-table.css';
 
+export default {
+  name: 'FuncionarioView',
+  components: { MenuLateral, VueGoodTable },
+  data() {
+    return {
+      formulario: {
+        nome: '',
+        cpf: '',
+        endereco: '',
+        contato: '',
+        email: '',
+      },
+      funcionarioEditando: null,
+      mostrarModal: false,
+      columns: [
+        { label: 'Nome', field: 'nome' },
+        { label: 'CPF', field: 'cpf' },
+        { label: 'Endereço', field: 'endereco' },
+        { label: 'Contato', field: 'contato' },
+        { label: 'E-mail', field: 'email' },
+        { label: 'Ações', field: 'actions', sortable: false },
+      ],
+    };
+  },
+  computed: {
+    ...mapGetters(['funcionarios']),
+  },
+  methods: {
+    ...mapActions(['getFuncionarios', 'registerFuncionario', 'updateFuncionario', 'removeFuncionario']),
+    
+    abrirModal(funcionario = null) {
+      this.mostrarModal = true;
+      if (funcionario) {
+        this.funcionarioEditando = funcionario.id;
+        this.formulario = { ...funcionario };
+      } else {
+        this.funcionarioEditando = null;
+        this.formulario = { nome: '', cpf: '', endereco: '', contato: '', email: '' };
+      }
+    },
+    fecharModal() {
+      this.mostrarModal = false;
+    },
+    async salvarFuncionario() {
+      if (this.funcionarioEditando !== null) {
+        await this.updateFuncionario({ id: this.funcionarioEditando, funcionario: this.formulario });
+      } else {
+        await this.registerFuncionario(this.formulario);
+      }
+      this.fecharModal();
+      this.getFuncionarios();
+    },
+    async removeFuncionario(id) {
+      await this.removeFuncionario(id);
+      this.getFuncionarios();
+    },
+  },
+  created() {
+    this.getFuncionarios();
+  },
+};
 </script>
+
+<style scoped>
+.funcionario-container {
+  display: flex;
+  background-color: #D2D6DE;
+  min-height: 100vh;
+}
+
+.content {
+  flex: 1;
+  padding: 20px;
+}
+
+.title {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 24px;
+  margin-bottom: 20px;
+  color: #4a4a4a;
+}
+
+.btn-add {
+  background-color: #00A65A;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-radius: 4px;
+  padding: 10px 20px;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.good-table {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal {
+  background-color: white;
+  width: 1282px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.modal-header h2 {
+  font-size: 20px;
+  color: #333333;
+}
+
+.input-group input {
+  border: 1px solid #B4B4B4;
+  border-radius: 4px;
+  padding: 8px;
+  width: 100%;
+}
+
+.modal-footer {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.save-button {
+  background-color: #00A65A;
+  color: #FFFFFF;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+</style>
