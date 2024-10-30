@@ -46,7 +46,6 @@
               </button>
             </td>
           </tr>
-          <!-- Adicione mais linhas de dados conforme necessário -->
         </tbody>
       </table>
     </div>
@@ -69,7 +68,10 @@ export default {
       responsive: true,
       searching: true,
       paging: true,
-      info: true
+      info: true,
+      language: {
+        url: 'https://cdn.datatables.net/plug-ins/1.10.21/i18n/Portuguese-Brasil.json'
+      }
     });
   },
   methods: {
@@ -107,6 +109,10 @@ export default {
 .btn-add {
   margin-bottom: 10px;
   font-size: 14px;
+}
+
+table.table {
+  background-color: #ffffff; /* Fundo branco para a tabela */
 }
 
 table.dataTable thead th {
