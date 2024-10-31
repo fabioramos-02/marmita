@@ -1,16 +1,5 @@
 {
-  "funcionarios": [
-    {
-      "id": "1",
-      "nome": "fabio",
-      "cpf": "052.278.921-80",
-      "endereco": "Rua X",
-      "contato": "(67) 90000-0000",
-      "email": "joao@exemplo.com",
-      "vgt_id": 0,
-      "originalIndex": 0
-    }
-  ],
+  "funcionarios": [],
   "usuarios": [
     {
       "id": "1",

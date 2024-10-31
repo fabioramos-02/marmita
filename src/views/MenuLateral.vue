@@ -23,8 +23,7 @@ export default {
     },
     navegarParaHome() {
       // Redireciona para a página inicial ou dashboard
-      // recarregarpagina
-      this.$router.push("/"); // Ajuste a rota conforme necessário
+      // recarregar rota /funcionario
     },
     navegarParaCardapio() {
       // Redireciona para a página do cardápio

@@ -38,6 +38,7 @@ export default new Vuex.Store({
     },
     async registerFuncionario({ dispatch }, funcionario) {
       try {
+        // Usamos POST para criar um novo funcionário, sem incluir o ID
         await axios.post('http://localhost:3000/funcionarios', funcionario);
         dispatch('getFuncionarios'); // Atualiza a lista
       } catch (error) {
@@ -46,13 +47,18 @@ export default new Vuex.Store({
     },
     async updateFuncionario({ dispatch }, { id, funcionario }) {
       try {
-        await axios.put(`http://localhost:3000/funcionarios/${id}`, funcionario);
-        dispatch('getFuncionarios'); // Atualiza a lista
+        // Usamos PUT para atualizar um funcionário existente com um ID específico
+        if (id) {
+          await axios.put(`http://localhost:3000/funcionarios/${id}`, funcionario);
+          dispatch('getFuncionarios'); // Atualiza a lista
+        } else {
+          console.error("ID não definido para a atualização do funcionário.");
+        }
       } catch (error) {
         console.error(`Erro ao atualizar funcionário com ID ${id}:`, error);
       }
     },
-    async deleteFuncionario({ dispatch }, id) { // Renomeado para evitar conflito
+    async deleteFuncionario({ dispatch }, id) {
       try {
         await axios.delete(`http://localhost:3000/funcionarios/${id}`);
         dispatch('getFuncionarios'); // Atualiza a lista

@@ -6,13 +6,8 @@
       <button class="btn-add" @click="abrirModal">+ Incluir</button>
 
       <!-- Tabela com vue-good-table -->
-      <vue-good-table
-        :columns="columns"
-        :rows="funcionarios"
-        :search-options="{ enabled: true }"
-        :pagination-options="{ enabled: true, perPage: 5 }"
-        class="good-table"
-      >
+      <vue-good-table :columns="columns" :rows="funcionarios" :search-options="{ enabled: true }"
+        :pagination-options="{ enabled: true, perPage: 5 }" class="good-table">
         <template slot="table-row" slot-scope="props">
           <span>{{ props.row[props.column.field] }}</span>
           <template v-if="props.column.field === 'actions'">
@@ -103,40 +98,56 @@ export default {
     ...mapGetters(['funcionarios']),
   },
   methods: {
-    ...mapActions(['getFuncionarios', 'registerFuncionario', 'updateFuncionario', 'removeFuncionario']),
-    
+    ...mapActions(['getFuncionarios', 'registerFuncionario', 'updateFuncionario', 'deleteFuncionario']),
+
     abrirModal(funcionario = null) {
       this.mostrarModal = true;
-      if (funcionario) {
+      if (funcionario && funcionario.id) {
+        // Modo de edição: Preenche o formulário com os dados do funcionário
         this.funcionarioEditando = funcionario.id;
         this.formulario = { ...funcionario };
       } else {
+        // Modo de inclusão: Reseta o formulário e `funcionarioEditando`
         this.funcionarioEditando = null;
         this.formulario = { nome: '', cpf: '', endereco: '', contato: '', email: '' };
       }
     },
+
     fecharModal() {
       this.mostrarModal = false;
+      this.funcionarioEditando = null; // Reseta o modo de edição ao fechar
     },
+
     async salvarFuncionario() {
-      if (this.funcionarioEditando !== null) {
-        await this.updateFuncionario({ id: this.funcionarioEditando, funcionario: this.formulario });
-      } else {
-        await this.registerFuncionario(this.formulario);
+      try {
+        if (this.funcionarioEditando !== null && this.funcionarioEditando !== undefined) {
+          // Modo de edição
+          console.log("Editando funcionário com ID:", this.funcionarioEditando);
+          await this.updateFuncionario({ id: this.funcionarioEditando, funcionario: this.formulario });
+        } else {
+          // Modo de inclusão
+          console.log("Incluindo novo funcionário", this.formulario);
+          await this.registerFuncionario(this.formulario);
+        }
+        this.fecharModal();
+        this.getFuncionarios(); // Atualiza a lista de funcionários após salvar
+      } catch (error) {
+        console.error("Erro ao salvar funcionário:", error);
       }
-      this.fecharModal();
-      this.getFuncionarios();
     },
+
     async removeFuncionario(id) {
-      await this.removeFuncionario(id);
+      await this.deleteFuncionario(id);
       this.getFuncionarios();
     },
   },
+
   created() {
-    this.getFuncionarios();
+    this.getFuncionarios(); // Carrega a lista de funcionários ao montar o componente
   },
 };
 </script>
+
 
 <style scoped>
 .funcionario-container {
@@ -154,6 +165,7 @@ export default {
   font-family: 'Source Sans Pro', sans-serif;
   font-size: 24px;
   margin-bottom: 20px;
+  text-align: left;
   color: #4a4a4a;
 }
 
@@ -202,7 +214,9 @@ export default {
   border: 1px solid #B4B4B4;
   border-radius: 4px;
   padding: 8px;
-  width: 100%;
+  margin: 10px;
+  width: 90%;
+
 }
 
 .modal-footer {
