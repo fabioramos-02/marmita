@@ -1,5 +1,16 @@
 {
-  "funcionarios": [],
+  "funcionarios": [
+    {
+      "id": "3dea",
+      "nome": "Fabio Willian Lima Ramos",
+      "cpf": "052.278.921-80",
+      "endereco": "Rua Carlos Augusto Pissini Soubreiro",
+      "contato": "(67) 98482-5951",
+      "email": "fabiowilliam466@gmail.com",
+      "vgt_id": 0,
+      "originalIndex": 0
+    }
+  ],
   "usuarios": [
     {
       "id": "1",

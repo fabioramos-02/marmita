@@ -38,7 +38,7 @@
               </div>
               <div class="input-group">
                 <label>CPF</label>
-                <input v-model="formulario.cpf" placeholder="CPF" required />
+                <input v-model="formulario.cpf" v-mask="'###.###.###-##'" placeholder="000.000.000-00" required />
               </div>
               <div class="input-group">
                 <label>Endereço</label>
@@ -46,7 +46,7 @@
               </div>
               <div class="input-group">
                 <label>Contato</label>
-                <input v-model="formulario.contato" placeholder="Contato" required />
+                <input v-model="formulario.contato" v-mask="'(##) #####-####'" placeholder="(XX) XXXXX-XXXX" required />
               </div>
               <div class="input-group">
                 <label>E-mail</label>
@@ -60,19 +60,26 @@
           </form>
         </div>
       </div>
+
+      <!-- Modal de Aviso -->
+      <ModalAviso :mensagem="avisoMensagem" :mostrar="mostrarAviso" @fechar="mostrarAviso = false" />
     </div>
   </div>
 </template>
 
 <script>
 import MenuLateral from './MenuLateral.vue';
+import ModalAviso from '../components/ModalAviso.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
 import 'vue-good-table/dist/vue-good-table.css';
+import { isValidCPF, isValidContato } from '../util/validations';
+import { mask } from 'vue-the-mask';
 
 export default {
   name: 'FuncionarioView',
-  components: { MenuLateral, VueGoodTable },
+  components: { MenuLateral, VueGoodTable, ModalAviso },
+  directives: { mask },
   data() {
     return {
       formulario: {
@@ -82,6 +89,8 @@ export default {
         contato: '',
         email: '',
       },
+      avisoMensagem: '', // Mensagem do modal de aviso
+      mostrarAviso: false, // Controle do modal de aviso
       funcionarioEditando: null,
       mostrarModal: false,
       columns: [
@@ -103,11 +112,9 @@ export default {
     abrirModal(funcionario = null) {
       this.mostrarModal = true;
       if (funcionario && funcionario.id) {
-        // Modo de edição: Preenche o formulário com os dados do funcionário
         this.funcionarioEditando = funcionario.id;
         this.formulario = { ...funcionario };
       } else {
-        // Modo de inclusão: Reseta o formulário e `funcionarioEditando`
         this.funcionarioEditando = null;
         this.formulario = { nome: '', cpf: '', endereco: '', contato: '', email: '' };
       }
@@ -115,22 +122,32 @@ export default {
 
     fecharModal() {
       this.mostrarModal = false;
-      this.funcionarioEditando = null; // Reseta o modo de edição ao fechar
+      this.funcionarioEditando = null;
+    },
+
+    mostrarAvisoModal(mensagem) {
+      this.avisoMensagem = mensagem;
+      this.mostrarAviso = true;
     },
 
     async salvarFuncionario() {
       try {
-        if (this.funcionarioEditando !== null && this.funcionarioEditando !== undefined) {
-          // Modo de edição
-          console.log("Editando funcionário com ID:", this.funcionarioEditando);
+        if (!isValidCPF(this.formulario.cpf)) {
+          this.mostrarAvisoModal("CPF inválido.");
+          return;
+        }
+        if (!isValidContato(this.formulario.contato)) {
+          this.mostrarAvisoModal("Contato inválido. Use o formato (XX) XXXXX-XXXX.");
+          return;
+        }
+
+        if (this.funcionarioEditando !== null) {
           await this.updateFuncionario({ id: this.funcionarioEditando, funcionario: this.formulario });
         } else {
-          // Modo de inclusão
-          console.log("Incluindo novo funcionário", this.formulario);
           await this.registerFuncionario(this.formulario);
         }
         this.fecharModal();
-        this.getFuncionarios(); // Atualiza a lista de funcionários após salvar
+        this.getFuncionarios();
       } catch (error) {
         console.error("Erro ao salvar funcionário:", error);
       }
@@ -141,13 +158,11 @@ export default {
       this.getFuncionarios();
     },
   },
-
   created() {
-    this.getFuncionarios(); // Carrega a lista de funcionários ao montar o componente
+    this.getFuncionarios();
   },
 };
 </script>
-
 
 <style scoped>
 .funcionario-container {
@@ -216,7 +231,6 @@ export default {
   padding: 8px;
   margin: 10px;
   width: 90%;
-
 }
 
 .modal-footer {
