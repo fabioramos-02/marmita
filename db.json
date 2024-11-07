@@ -25,9 +25,81 @@
       "role": "funcionario"
     },
     {
-      "id": "3",
-      "username": "cliente",
-      "password": "cliente123",
+      "id": "7f0e",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "a7cf",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "bb31",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "f409",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "543a",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "76f6",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "db70",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "b5a9",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "71c7",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "d238",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "ebc5",
+      "username": "tests",
+      "password": "tese",
+      "role": "cliente"
+    },
+    {
+      "id": "605a",
+      "username": "teste",
+      "password": "teste",
+      "role": "cliente"
+    },
+    {
+      "id": "99fd",
+      "username": "zeHenrique",
+      "password": "teste",
       "role": "cliente"
     }
   ]

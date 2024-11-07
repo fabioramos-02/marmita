@@ -1,11 +1,17 @@
-export interface Funcionario {
-  id: number;
+export class Funcionario {
+  id: string;
   nome: string;
   cpf: string;
   endereco: string;
   contato: string;
   email: string;
-}
 
-// Tipo para operações de criação e atualização (sem `id`)
-export type FuncionarioBody = Omit<Funcionario, 'id'>;
+  constructor(id: string, nome: string, cpf: string, endereco: string, contato: string, email: string) {
+    this.id = id;
+    this.nome = nome;
+    this.cpf = cpf;
+    this.endereco = endereco;
+    this.contato = contato;
+    this.email = email;
+  }
+}

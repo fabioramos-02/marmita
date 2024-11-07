@@ -14,7 +14,7 @@
         </div>
         <button type="submit">Entrar</button>
       </form>
-      <a href="#">Recuperar senha</a>
+      <a href="/registrar">Criar conta</a>
     </div>
 
     <!-- Modal de erro -->
@@ -29,6 +29,9 @@
 </template>
 
 <script>
+import UsuarioController from "../controllers/UsuarioController";
+
+
 export default {
   name: "LoginPage",
   data() {
@@ -41,18 +44,14 @@ export default {
   methods: {
     async fazerLogin() {
       try {
-        // Consulta ao JSON Server para verificar usuário e senha
-        const response = await fetch(
-          `http://localhost:3000/usuarios?username=${this.usuario}&password=${this.senha}`
-        );
-        const usuarios = await response.json();
+        // Chama o método de login no controller
+        const usuarioLogado = await UsuarioController.login(this.usuario, this.senha);
 
-        if (usuarios.length > 0) {
+        if (usuarioLogado) {
           // Login bem-sucedido
-          const usuarioLogado = usuarios[0];
           localStorage.setItem("token", "fake-token");
           localStorage.setItem("usuario", JSON.stringify(usuarioLogado));
-          
+
           // Redirecionamento com base na role do usuário
           if (usuarioLogado.role === "admin" || usuarioLogado.role === "funcionario") {
             this.$router.push("/funcionario");
@@ -73,6 +72,7 @@ export default {
   }
 };
 </script>
+
 
 <style scoped>
 /* Estilos para a página de login */

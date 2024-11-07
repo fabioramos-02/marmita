@@ -68,7 +68,7 @@
 </template>
 
 <script>
-import MenuLateral from './MenuLateral.vue';
+import MenuLateral from '../components/MenuLateral.vue';
 import ModalAviso from '../components/ModalAviso.vue';
 import { mapActions, mapGetters } from 'vuex';
 import { VueGoodTable } from 'vue-good-table';
