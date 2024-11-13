@@ -31,16 +31,28 @@ export default {
       }
     },
     async addItem({ commit }, item) {
-      const response = await axios.post('http://localhost:3000/cardapio', item);
-      commit('ADD_ITEM', response.data);
+      try {
+        const response = await axios.post('http://localhost:3000/cardapio', item);
+        commit('ADD_ITEM', response.data);
+      } catch (error) {
+        console.error("Erro ao adicionar item:", error);
+      }
     },
     async updateItem({ commit }, item) {
-      const response = await axios.put(`http://localhost:3000/cardapio/${item.id}`, item);
-      commit('UPDATE_ITEM', response.data);
+      try {
+        const response = await axios.put(`http://localhost:3000/cardapio/${item.id}`, item);
+        commit('UPDATE_ITEM', response.data);
+      } catch (error) {
+        console.error("Erro ao atualizar item:", error);
+      }
     },
     async deleteItem({ commit }, id) {
-      await axios.delete(`http://localhost:3000/cardapio/${id}`);
-      commit('DELETE_ITEM', id);
+      try {
+        await axios.delete(`http://localhost:3000/cardapio/${id}`);
+        commit('DELETE_ITEM', id);
+      } catch (error) {
+        console.error("Erro ao deletar item:", error);
+      }
     },
   },
   getters: {

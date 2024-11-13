@@ -45,7 +45,7 @@
     background-color: white;
     padding: 20px;
     border-radius: 10px;
-    width: 300px;
+    width: 800px;
   }
   .modal-footer {
     display: flex;

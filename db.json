@@ -1,24 +1,23 @@
 {
   "funcionarios": [
     {
-      "id": "3dea",
-      "nome": "Fabio Willian Lima Ramos",
-      "cpf": "052.278.921-80",
-      "endereco": "Rua Carlos Augusto Pissini Soubreiro",
-      "contato": "(67) 98482-5951",
-      "email": "fabiowilliam466@gmail.com",
-      "vgt_id": 0,
-      "originalIndex": 0
-    },
-    {
       "id": "4026",
-      "nome": "teste3",
+      "nome": "tetste",
       "cpf": "052.278.921-80",
       "endereco": "Rua Carlos Augusto Pissini Soubreiro",
       "contato": "(67) 98482-2222",
       "email": "fabiowilliam466@gmail.com",
       "vgt_id": 0,
-      "originalIndex": 1
+      "originalIndex": 0,
+      "endereço": "Rua Carlos Augusto Pissini Soubreiro"
+    },
+    {
+      "id": "a0c0",
+      "nome": "Fabio Willian Lima Ramos",
+      "cpf": "052.278.921-80",
+      "endereco": "Rua Carlos Augusto Pissini Soubreiro",
+      "contato": "(67) 98482-5955",
+      "email": "fabiowilliam466@gmail.com"
     }
   ],
   "usuarios": [
@@ -117,6 +116,14 @@
       "username": "fabioteste",
       "password": "1233",
       "role": "cliente"
+    }
+  ],
+  "cardapio": [
+    {
+      "id": 1,
+      "nome": "Frango Grelhado",
+      "descricao": "Peito de frango grelhado",
+      "tipo": "Proteína"
     }
   ]
 }
