@@ -1,8 +1,9 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Funcionario from "./views/FuncionarioView.vue";
+import FuncionarioView from "./views/Funcionario.vue";
 import LoginPage from "./views/Login.vue";
-import CadastrarUsuario from "./views/CadastrarUsuario.vue";
+import RegistrarUsuario from "./views/Usuario.vue";
+import CardapioView from "./views/CardapioView.vue";
 
 
 
@@ -18,12 +19,12 @@ const routes = [
   {
     path: "/registrar",
     name: "RegistrarUsuario",
-    component: CadastrarUsuario,
+    component: RegistrarUsuario,
   },
   {
     path: "/funcionario", 
     name: "Funcionario",
-    component: Funcionario,
+    component: FuncionarioView,
   },
   {
     path: "/login",
@@ -31,10 +32,12 @@ const routes = [
     component: LoginPage,
   },
   {
-    path: "/funcionario",
-    name: "Funcionario",
-    component: Funcionario,
+    path: "/cardapio",
+    name: "Cardapio",
+    component: CardapioView,
+
   },
+  
   // Outras rotas...
 ];
 

@@ -1,0 +1,85 @@
+/* src/assets/styles/FuncionarioStyles */
+
+.funcionario-container {
+    display: flex;
+    background-color: #D2D6DE;
+    min-height: 100vh;
+  }
+  
+  .content {
+    flex: 1;
+    padding: 20px;
+  }
+  
+  .title {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-size: 24px;
+    margin-bottom: 20px;
+    text-align: left;
+    color: #4a4a4a;
+  }
+  
+  .btn-add {
+    background-color: #00A65A;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 15px;
+  }
+  
+  .good-table {
+    font-family: 'Source Sans Pro', sans-serif;
+  }
+  
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    text-align: left;
+    align-items: center;
+  }
+  
+  .modal {
+    background-color: white;
+    width: 1282px;
+    padding: 20px;
+    border-radius: 10px;
+  }
+  
+  .modal-header h2 {
+    font-size: 20px;
+    color: #333333;
+  }
+  
+  .input-group input {
+    border: 1px solid #B4B4B4;
+    border-radius: 4px;
+    padding: 8px;
+    margin: 10px;
+    width: 90%;
+  }
+  
+  .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+  }
+  
+  .save-button {
+    background-color: #00A65A;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }

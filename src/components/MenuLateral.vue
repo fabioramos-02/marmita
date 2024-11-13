@@ -14,24 +14,30 @@ export default {
   name: "MenuLateral",
   methods: {
     fazerLogout() {
-      // Remove o token e os dados do usuário do localStorage para encerrar a sessão
       localStorage.removeItem("token");
       localStorage.removeItem("usuario");
-
-      // Redireciona para a página de login
       this.$router.push("/login");
     },
     navegarParaHome() {
-      // Redireciona para a página inicial ou dashboard
-      // recarregar rota /funcionario
+      if (this.$route.path !== "/funcionario") {
+        this.$router.push("/funcionario");
+      } else {
+        this.$router.go(); // Recarrega a página se já estiver na rota
+      }
     },
     navegarParaCardapio() {
-      // Redireciona para a página do cardápio
-      this.$router.push("/cardapio"); // Ajuste a rota conforme necessário
+      if (this.$route.path !== "/cardapio") {
+        this.$router.push("/cardapio");
+      } else {
+        this.$router.go();
+      }
     },
     navegarParaConfig() {
-      // Redireciona para a página de configurações
-      this.$router.push("/config"); // Ajuste a rota conforme necessário
+      if (this.$route.path !== "/config") {
+        this.$router.push("/config");
+      } else {
+        this.$router.go();
+      }
     }
   }
 };

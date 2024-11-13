@@ -1,0 +1,10 @@
+/* src/assets/styles/CardapioStyles.css */
+
+.main-container {
+    display: flex;
+}
+
+.cardapio-container {
+    flex: 1;
+    padding: 20px;
+}
