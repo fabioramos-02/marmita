@@ -1,9 +1,12 @@
-import axios from 'axios';
+import axios from "axios";
+const API_URL = "http://localhost:3000/funcionarios";
+const USER_API_URL = "http://localhost:3000/usuarios";
 
 export default {
   state: {
     funcionarios: [],
     funcionario: null,
+    usuarios: [] // Para carregar os usuários disponíveis
   },
   mutations: {
     SET_FUNCIONARIOS(state, funcionarios) {
@@ -12,51 +15,61 @@ export default {
     SET_FUNCIONARIO(state, funcionario) {
       state.funcionario = funcionario;
     },
+    ADD_FUNCIONARIO(state, funcionario) {
+      state.funcionarios.push(funcionario);
+    },
+    REMOVE_FUNCIONARIO(state, id) {
+      state.funcionarios = state.funcionarios.filter((f) => f.id !== id);
+    },
+    SET_USUARIOS(state, usuarios) {
+      state.usuarios = usuarios;
+    }
   },
   actions: {
     async getFuncionarios({ commit }) {
       try {
-        const response = await axios.get('http://localhost:3000/funcionarios');
-        commit('SET_FUNCIONARIOS', response.data);
+        const response = await axios.get(API_URL);
+        commit("SET_FUNCIONARIOS", response.data);
       } catch (error) {
         console.error("Erro ao buscar funcionários:", error);
       }
     },
-    async getFuncionario({ commit }, id) {
+    async getUsuarios({ commit }) {
       try {
-        const response = await axios.get(`http://localhost:3000/funcionarios/${id}`);
-        commit('SET_FUNCIONARIO', response.data);
+        const response = await axios.get(USER_API_URL);
+        commit("SET_USUARIOS", response.data);
       } catch (error) {
-        console.error(`Erro ao buscar funcionário com ID ${id}:`, error);
+        console.error("Erro ao buscar usuários:", error);
       }
     },
-    async registerFuncionario({ dispatch }, funcionario) {
+    async registerFuncionario({ commit }, funcionario) {
       try {
-        await axios.post('http://localhost:3000/funcionarios', funcionario);
-        dispatch('getFuncionarios');
+        const response = await axios.post(API_URL, funcionario);
+        commit("ADD_FUNCIONARIO", response.data);
       } catch (error) {
         console.error("Erro ao registrar funcionário:", error);
       }
     },
     async updateFuncionario({ dispatch }, { id, funcionario }) {
       try {
-        await axios.put(`http://localhost:3000/funcionarios/${id}`, funcionario);
-        dispatch('getFuncionarios');
+        await axios.put(`${API_URL}/${id}`, funcionario);
+        dispatch("getFuncionarios");
       } catch (error) {
         console.error(`Erro ao atualizar funcionário com ID ${id}:`, error);
       }
     },
-    async deleteFuncionario({ dispatch }, id) {
+    async deleteFuncionario({ commit }, id) {
       try {
-        await axios.delete(`http://localhost:3000/funcionarios/${id}`);
-        dispatch('getFuncionarios');
+        await axios.delete(`${API_URL}/${id}`);
+        commit("REMOVE_FUNCIONARIO", id);
       } catch (error) {
         console.error(`Erro ao deletar funcionário com ID ${id}:`, error);
       }
-    },
+    }
   },
   getters: {
-    funcionarios: state => state.funcionarios,
-    funcionario: state => state.funcionario,
-  },
+    funcionarios: (state) => state.funcionarios,
+    funcionario: (state) => state.funcionario,
+    usuarios: (state) => state.usuarios
+  }
 };
